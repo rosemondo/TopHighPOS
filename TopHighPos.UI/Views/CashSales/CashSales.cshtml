@@ -1,0 +1,267 @@
+﻿@using TopHighPos.Domain
+@{
+    ViewBag.Title = "CashSales";
+
+}
+
+<style type="text/css">
+    .reqError {
+        color: #ff0000; /*Red Color*/
+        font-weight: bold;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="text-danger" id="ErrorMessage">
+
+    </div>
+
+    <div class="card card-info">
+        <div class="card-header" style="background-color: #006994;color:white">
+            <h6 class="card-title">Sales Form</h6>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        @using (Html.BeginForm("AddToBasket", "CashSales", FormMethod.Post))
+        {
+            <div class="card-body">
+
+                <div class="form-group row">
+
+                    <div class="col-sm-6">
+                        <label>Select Product</label>
+                        @Html.DropDownList("Product", ViewBag.Product as IEnumerable<SelectListItem>, " ", new { @id = "ddlproduct", name = "ddlproduct", @class = "form-control", @style = "width:100%", @onchange = "getProductData(this)" })
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label>Qty</label>
+                        <input id="txtqty" name="txtqty" type="number" value="1" class="form-control" style="background-color:white; font-weight:bold; text-align:center" />
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label>Price</label>
+                        <input id="txtprice" name="price" type="text" value="0" class="form-control" readonly="readonly" style="background-color: white; font-weight: bold; text-align: center" />
+                        <span id="reqtxtprice" class="reqError"></span><br />
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-sm-8">
+                        <label>Product Description</label>
+                        <input id="txtproductdescription" name="productdescription" type="text" class="form-control" readonly="readonly" style="background-color:white" />
+                        <span id="reqtxtproductdescription" class="reqError"></span><br />
+                    </div>
+
+                    <div class="col-sm-4">
+                        <br />
+                        <button type="submit" id="submit" class="btn btn-primary">Add To List <i class="fas fa-fw fa-plus"></i></button>
+                    </div>
+
+                </div>
+
+                <input id="txtid" type="hidden" value="0" />
+                <input id="txtproid" name="proid" type="hidden" />
+                <input id="txtproduct" name="txtproduct" type="hidden" />
+                <input id="txtcost" name="cost" type="hidden" value="0" />
+                <input id="txtvatvalue" type="hidden" value="0" />
+                <input id="txtdiscountvalue" type="hidden" value="0" />
+                <input id="txtorderid" type="hidden" value="0" />
+                <input id="txtbasketid" name="basketid" type="hidden" value="@ViewBag.otp" />
+            </div>
+        }
+
+        <hr style="border-block-color: #FF5733" />
+
+        <div class="container-fluid">
+
+            @if (Session["cart"] != null)
+            {
+                using (Html.BeginForm("UpdateCart", "CashSales", FormMethod.Post))
+                {
+                    <table class="table table-bordered table-striped table-responsive-sm" id="cashsalesTable">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th style="text-align:center">Action</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in (List<Basket>)Session["cart"])
+                        {
+                            <tbody>
+                                <tr id="a_@item.proid ">
+                                    <td>@item.product</td>
+                                    <td>
+                                        <input id="txtquantity" name="qty" type="number" value="@item.qty" class="form-control" style="width:80px" />
+                                    </td>
+                                    <td>@item.price</td>
+                                    <td>@(item.qty *  item.price)</td>
+                                    <td align="center" valign="middle">
+                                        <a href="@Url.Action("RemoveFromBasket","CashSales", new { @proid = item.proid })" onclick="return confirm('Do you want to remove this record?')" class="btn btn-danger btn-sm" style="margin-left: 5px"><i class="fa fa-trash"></i>Remove</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        <tfoot>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th style="text-align:center">Action</th>
+                            </tr>
+                            <tr style="text-align:right">
+                                <td colspan="4"></td>
+                                <td colspan="4">
+                                    <button type="submit" id="btnupdate" class="btn btn-primary float-right">Update Basket <i class="fas fa-fw fa-edit"></i></button>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                }
+            }
+            else
+            {
+                <h4>Your basket is empty</h4>
+            }
+
+            <hr style="border-block-color: #FF5733" />
+
+            <div class="form-group row">
+
+                <div class="col-sm-4">
+
+                    <label>Payment Method</label>
+                    @Html.DropDownList("ChartOfAccount", ViewBag.ChartOfAccount as IEnumerable<SelectListItem>, "Select Payment mode", new { @id = "dplpaytype", @class = "form-control" })
+                    <br />
+                    <br />
+                    <label>Customer</label>
+                    @Html.DropDownList("Customers", ViewBag.Customers as IEnumerable<SelectListItem>, new { @id = "dplcustomer", @class = "form-control" })
+
+                </div>
+
+                <div class="col-sm-2">
+                </div>
+
+                <div class="col-sm-6">
+
+                    <table class="table-responsive-sm" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td style="float:right">
+                                <label>Sub Total :</label>
+                            </td>
+                            <td style="padding:5px">
+                                @if (Session["cart"] != null)
+                                {
+                                    List<Basket> basket = (List<Basket>)Session["cart"];
+                                    var total = (from data in basket
+                                                 select data.price * data.qty).Sum();
+
+                                    <input id="txtsubtot" type="text" value="@total" class="form-control" readonly="readonly" style="background-color:white;text-align:right;font-weight:bold" />
+                                }
+                                else
+                                {
+                                    <input id="txtsubtot" type="text" value="0" class="form-control" readonly="readonly" style="background-color:white;text-align:right;font-weight:bold" />
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <label>VAT % :</label>
+                            </td>
+                            <td style="padding:5px">
+                                <input id="txtvat" type="text" value="0" class="form-control" style="text-align: right; font-weight: bold" onkeyup="Vatsum(this)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <label>Discount % :</label>
+                            </td>
+                            <td style="padding:5px">
+                                <input id="txtdiscount" type="text" value="0" class="form-control" style="text-align: right; font-weight: bold" onkeyup="Discsum(this)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <label>Net Total :</label>
+                            </td>
+                            <td style="padding:5px">
+                                @if (Session["cart"] != null)
+                                {
+                                    List<Basket> basket = (List<Basket>)Session["cart"];
+                                    var total = (from data in basket
+                                                 select data.price * data.qty).Sum();
+
+                                    <input id="txtnettot" type="text" value="@total" class="form-control" readonly="readonly" style="background-color: white; text-align: right; font-weight: bold" />
+                                }
+                                else
+                                {
+                                    <input id="txtnettot" type="text" value="0" class="form-control" readonly="readonly" style="background-color: white; text-align: right; font-weight: bold" />
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <label>Amount Received :</label>
+                            </td>
+                            <td style="padding:5px">
+                                <input id="txtreceive" type="text" value="0" class="form-control" style="text-align:right;font-weight:bold" onkeyup="Paysum(this)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="float:right">
+                                <label>Change : </label>
+                            </td>
+                            <td style="padding:5px">
+                                <input id="txtchange" type="text" value="0" class="form-control" readonly="readonly" style="background-color:white;text-align:right;font-weight:bold" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+            <a class="btn btn-success float-right" onclick="SaveOrders()">Payment <i class="fas fa-fw fa-money"></i></a>
+        </div>
+
+    </div>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/select2/select2.min.css" rel="stylesheet" />
+
+    @section scripts{
+
+        <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+        <script src="~/select2/select2.min.js"></script>
+        <script src="~/js_scripts/cashsales.js"></script>
+        <script src="~/Scripts/notify.min.js"></script>
+
+        <script type="text/javascript">
+            /*Call load function*/
+            $(document).ready(function () {
+                $("#ddlproduct").select2();
+                $("#dplpaytype").select2();
+                $("#dplcustomer").select2();
+            });
+
+        </script>
+
+    }
+
+
+</div>
+
+<br />
+
+

@@ -1,0 +1,11 @@
+﻿.card-header {
+    background-color: #006994;
+}
+
+.card-title {
+    color: white;
+}
+
+select {
+    width: 100%;
+}

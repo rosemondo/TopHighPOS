@@ -1,0 +1,1346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="POSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CashSalesBasket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="basketid" Type="uniqueidentifier" />
+          <Property Name="proid" Type="int" />
+          <Property Name="product" Type="varchar" MaxLength="150" />
+          <Property Name="qty" Type="float" />
+          <Property Name="price" Type="float" />
+          <Property Name="cost" Type="float" />
+        </EntityType>
+        <EntityType Name="CashSalesOders">
+          <Key>
+            <PropertyRef Name="odernumber" />
+          </Key>
+          <Property Name="oderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderdate" Type="date" />
+          <Property Name="odernumber" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="pay_meth" Type="varchar" MaxLength="50" />
+          <Property Name="subtotal" Type="float" />
+          <Property Name="vat" Type="float" />
+          <Property Name="sale_disc" Type="float" />
+          <Property Name="nettotal" Type="float" />
+          <Property Name="amt_rece" Type="float" />
+          <Property Name="amt_change" Type="float" />
+          <Property Name="custid" Type="int" />
+          <Property Name="salesagent" Type="varchar(max)" />
+          <Property Name="shopid" Type="int" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdatedate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CashSalesOrderDetails">
+          <Key>
+            <PropertyRef Name="oderdetailsid" />
+          </Key>
+          <Property Name="oderdetailsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="odernumber" Type="uniqueidentifier" />
+          <Property Name="product" Type="nvarchar(max)" />
+          <Property Name="qty" Type="float" />
+          <Property Name="salesprice" Type="float" />
+          <Property Name="unitcost" Type="float" />
+          <Property Name="totals" Type="float" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="catid" />
+          </Key>
+          <Property Name="catid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cate" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="datetime" Nullable="false" />
+          <Property Name="lastupdateddate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChartOfAccount">
+          <Key>
+            <PropertyRef Name="coaid" />
+          </Key>
+          <Property Name="coaid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="coa_code" Type="int" Nullable="false" />
+          <Property Name="coa_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="coa_group" Type="varchar" MaxLength="100" />
+          <Property Name="coa_sub_group" Type="varchar" MaxLength="45" />
+          <Property Name="coa_cate" Type="varchar" MaxLength="45" />
+          <Property Name="coa_cf" Type="varchar" MaxLength="45" />
+          <Property Name="coa_ocbfy" Type="varchar" MaxLength="45" />
+          <Property Name="coa_cogm" Type="varchar" MaxLength="45" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CreditSalesOders">
+          <Key>
+            <PropertyRef Name="odernumber" />
+          </Key>
+          <Property Name="oderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderdate" Type="date" />
+          <Property Name="odernumber" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="pay_meth" Type="varchar" MaxLength="50" />
+          <Property Name="subtotal" Type="float" />
+          <Property Name="vat" Type="float" />
+          <Property Name="nettotal" Type="float" />
+          <Property Name="po_num" Type="int" />
+          <Property Name="due_date" Type="date" />
+          <Property Name="custid" Type="int" />
+          <Property Name="salesagent" Type="varchar(max)" />
+          <Property Name="shopid" Type="int" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdatedate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CreditSalesOrderDetails">
+          <Key>
+            <PropertyRef Name="oderdetailsid" />
+          </Key>
+          <Property Name="oderdetailsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="odernumber" Type="uniqueidentifier" />
+          <Property Name="product" Type="nvarchar(max)" />
+          <Property Name="qty" Type="float" />
+          <Property Name="salesprice" Type="float" />
+          <Property Name="unitcost" Type="float" />
+          <Property Name="totals" Type="float" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CreditStatement">
+          <Key>
+            <PropertyRef Name="stid" />
+          </Key>
+          <Property Name="stid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="st_date" Type="date" />
+          <Property Name="description" Type="varchar" MaxLength="150" />
+          <Property Name="vch_type" Type="varchar" MaxLength="50" />
+          <Property Name="debit" Type="float" />
+          <Property Name="credit" Type="float" />
+          <Property Name="custid" Type="int" Nullable="false" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdatedate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="custid" />
+          </Key>
+          <Property Name="custid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customername" Type="varchar" MaxLength="150" />
+          <Property Name="custaddress" Type="varchar(max)" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="website" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JournalVoucher">
+          <Key>
+            <PropertyRef Name="jv_id" />
+          </Key>
+          <Property Name="jv_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cash_code" Type="varchar" MaxLength="50" />
+          <Property Name="jv_date" Type="date" />
+          <Property Name="coaid" Type="int" Nullable="false" />
+          <Property Name="debit" Type="float" />
+          <Property Name="credit" Type="float" />
+          <Property Name="descriptions" Type="varchar(max)" />
+          <Property Name="ent_time" Type="time" Precision="7" />
+          <Property Name="shopid" Type="int" />
+          <Property Name="RolesId" Type="int" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="proid" />
+          </Key>
+          <Property Name="proid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="catid" Type="int" />
+          <Property Name="ProductName" Type="nvarchar(max)" />
+          <Property Name="ProductDescription" Type="nvarchar(max)" />
+          <Property Name="Sku" Type="nvarchar(max)" />
+          <Property Name="Qty" Type="float" />
+          <Property Name="UnitCost" Type="float" />
+          <Property Name="SalesPrice" Type="float" />
+          <Property Name="ReoderPoint" Type="float" />
+          <Property Name="supid" Type="int" />
+          <Property Name="shopid" Type="int" />
+          <Property Name="manufacturingdate" Type="date" />
+          <Property Name="expirydate" Type="date" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Producthistory">
+          <Key>
+            <PropertyRef Name="histid" />
+          </Key>
+          <Property Name="histid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proid" Type="int" />
+          <Property Name="qty_in" Type="float" />
+          <Property Name="qty_out" Type="float" />
+          <Property Name="shopid" Type="int" />
+          <Property Name="createddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="shopid" />
+          </Key>
+          <Property Name="shopid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="shopn_name" Type="varchar(max)" />
+          <Property Name="shop_address" Type="varchar(max)" />
+          <Property Name="shop_city" Type="varchar" MaxLength="50" />
+          <Property Name="shop_state" Type="varchar" MaxLength="50" />
+          <Property Name="shop_phone" Type="varchar" MaxLength="50" />
+          <Property Name="shop_email" Type="varchar" MaxLength="50" />
+          <Property Name="shop_website" Type="varchar" MaxLength="50" />
+          <Property Name="shop_location" Type="varchar(max)" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="supid" />
+          </Key>
+          <Property Name="supid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="suppliername" Type="varchar" MaxLength="150" />
+          <Property Name="supaddress" Type="varchar(max)" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="website" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="RolesId" />
+          </Key>
+          <Property Name="RolesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Roles" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email_address" Type="varchar(max)" />
+          <Property Name="password" Type="varchar(max)" />
+          <Property Name="rolesid" Type="int" Nullable="false" />
+          <Property Name="shopid" Type="int" Nullable="false" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="lastupdateddate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_CashSalesOders_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="CashSalesOders" Type="Self.CashSalesOders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="custid" />
+            </Principal>
+            <Dependent Role="CashSalesOders">
+              <PropertyRef Name="custid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashSalesOders_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="CashSalesOders" Type="Self.CashSalesOders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="CashSalesOders">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashSalesOrderDetails_CashSalesOders">
+          <End Role="CashSalesOders" Type="Self.CashSalesOders" Multiplicity="0..1" />
+          <End Role="CashSalesOrderDetails" Type="Self.CashSalesOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CashSalesOders">
+              <PropertyRef Name="odernumber" />
+            </Principal>
+            <Dependent Role="CashSalesOrderDetails">
+              <PropertyRef Name="odernumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditSalesOders_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="CreditSalesOders" Type="Self.CreditSalesOders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="custid" />
+            </Principal>
+            <Dependent Role="CreditSalesOders">
+              <PropertyRef Name="custid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditSalesOders_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="CreditSalesOders" Type="Self.CreditSalesOders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="CreditSalesOders">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditSalesOrderDetails_CreditSalesOders">
+          <End Role="CreditSalesOders" Type="Self.CreditSalesOders" Multiplicity="0..1" />
+          <End Role="CreditSalesOrderDetails" Type="Self.CreditSalesOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditSalesOders">
+              <PropertyRef Name="odernumber" />
+            </Principal>
+            <Dependent Role="CreditSalesOrderDetails">
+              <PropertyRef Name="odernumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditStatement_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CreditStatement" Type="Self.CreditStatement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="custid" />
+            </Principal>
+            <Dependent Role="CreditStatement">
+              <PropertyRef Name="custid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Users_dbo_Userroles_rolesid">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RolesId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="rolesid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalVoucher_ChartOfAccount">
+          <End Role="ChartOfAccount" Type="Self.ChartOfAccount" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="JournalVoucher" Type="Self.JournalVoucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChartOfAccount">
+              <PropertyRef Name="coaid" />
+            </Principal>
+            <Dependent Role="JournalVoucher">
+              <PropertyRef Name="coaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalVoucher_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="JournalVoucher" Type="Self.JournalVoucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="JournalVoucher">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalVoucher_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="0..1" />
+          <End Role="JournalVoucher" Type="Self.JournalVoucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RolesId" />
+            </Principal>
+            <Dependent Role="JournalVoucher">
+              <PropertyRef Name="RolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="catid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="catid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="supid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="supid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producthistory_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Producthistory" Type="Self.Producthistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="proid" />
+            </Principal>
+            <Dependent Role="Producthistory">
+              <PropertyRef Name="proid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producthistory_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="Producthistory" Type="Self.Producthistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="Producthistory">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="POSDBModelStoreContainer">
+          <EntitySet Name="CashSalesBasket" EntityType="Self.CashSalesBasket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashSalesOders" EntityType="Self.CashSalesOders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashSalesOrderDetails" EntityType="Self.CashSalesOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartOfAccount" EntityType="Self.ChartOfAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditSalesOders" EntityType="Self.CreditSalesOders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditSalesOrderDetails" EntityType="Self.CreditSalesOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditStatement" EntityType="Self.CreditStatement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JournalVoucher" EntityType="Self.JournalVoucher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producthistory" EntityType="Self.Producthistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CashSalesOders_Customers" Association="Self.FK_CashSalesOders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CashSalesOders" EntitySet="CashSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashSalesOders_Shop" Association="Self.FK_CashSalesOders_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="CashSalesOders" EntitySet="CashSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashSalesOrderDetails_CashSalesOders" Association="Self.FK_CashSalesOrderDetails_CashSalesOders">
+            <End Role="CashSalesOders" EntitySet="CashSalesOders" />
+            <End Role="CashSalesOrderDetails" EntitySet="CashSalesOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditSalesOders_Customers" Association="Self.FK_CreditSalesOders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CreditSalesOders" EntitySet="CreditSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditSalesOders_Shop" Association="Self.FK_CreditSalesOders_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="CreditSalesOders" EntitySet="CreditSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditSalesOrderDetails_CreditSalesOders" Association="Self.FK_CreditSalesOrderDetails_CreditSalesOders">
+            <End Role="CreditSalesOders" EntitySet="CreditSalesOders" />
+            <End Role="CreditSalesOrderDetails" EntitySet="CreditSalesOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditStatement_Customers" Association="Self.FK_CreditStatement_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CreditStatement" EntitySet="CreditStatement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Users_dbo_Userroles_rolesid" Association="Self.FK_dbo_Users_dbo_Userroles_rolesid">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalVoucher_ChartOfAccount" Association="Self.FK_JournalVoucher_ChartOfAccount">
+            <End Role="ChartOfAccount" EntitySet="ChartOfAccount" />
+            <End Role="JournalVoucher" EntitySet="JournalVoucher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalVoucher_Shop" Association="Self.FK_JournalVoucher_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="JournalVoucher" EntitySet="JournalVoucher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalVoucher_UserRoles" Association="Self.FK_JournalVoucher_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="JournalVoucher" EntitySet="JournalVoucher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Categories" Association="Self.FK_Product_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Shop" Association="Self.FK_Product_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Suppliers" Association="Self.FK_Product_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producthistory_Product" Association="Self.FK_Producthistory_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Producthistory" EntitySet="Producthistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producthistory_Shop" Association="Self.FK_Producthistory_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Producthistory" EntitySet="Producthistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="POSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CashSalesBasket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="basketid" Type="Guid" />
+          <Property Name="proid" Type="Int32" />
+          <Property Name="product" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Double" />
+          <Property Name="price" Type="Double" />
+          <Property Name="cost" Type="Double" />
+        </EntityType>
+        <EntityType Name="CashSalesOder">
+          <Key>
+            <PropertyRef Name="odernumber" />
+          </Key>
+          <Property Name="oderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderdate" Type="DateTime" Precision="0" />
+          <Property Name="odernumber" Type="Guid" Nullable="false" />
+          <Property Name="pay_meth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="Double" />
+          <Property Name="vat" Type="Double" />
+          <Property Name="sale_disc" Type="Double" />
+          <Property Name="nettotal" Type="Double" />
+          <Property Name="amt_rece" Type="Double" />
+          <Property Name="amt_change" Type="Double" />
+          <Property Name="custid" Type="Int32" />
+          <Property Name="salesagent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shopid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdatedate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_CashSalesOders_Customers" FromRole="CashSalesOders" ToRole="Customers" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_CashSalesOders_Shop" FromRole="CashSalesOders" ToRole="Shop" />
+          <NavigationProperty Name="CashSalesOrderDetails" Relationship="Self.FK_CashSalesOrderDetails_CashSalesOders" FromRole="CashSalesOders" ToRole="CashSalesOrderDetails" />
+        </EntityType>
+        <EntityType Name="CashSalesOrderDetail">
+          <Key>
+            <PropertyRef Name="oderdetailsid" />
+          </Key>
+          <Property Name="oderdetailsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="odernumber" Type="Guid" />
+          <Property Name="product" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Double" />
+          <Property Name="salesprice" Type="Double" />
+          <Property Name="unitcost" Type="Double" />
+          <Property Name="totals" Type="Double" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CashSalesOder" Relationship="Self.FK_CashSalesOrderDetails_CashSalesOders" FromRole="CashSalesOrderDetails" ToRole="CashSalesOders" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="catid" />
+          </Key>
+          <Property Name="catid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Categories" FromRole="Categories" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ChartOfAccount">
+          <Key>
+            <PropertyRef Name="coaid" />
+          </Key>
+          <Property Name="coaid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="coa_code" Type="Int32" Nullable="false" />
+          <Property Name="coa_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coa_group" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="coa_sub_group" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coa_cate" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coa_cf" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coa_ocbfy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coa_cogm" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="JournalVouchers" Relationship="Self.FK_JournalVoucher_ChartOfAccount" FromRole="ChartOfAccount" ToRole="JournalVoucher" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custid" />
+          </Key>
+          <Property Name="custid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customername" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="custaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CashSalesOders" Relationship="Self.FK_CashSalesOders_Customers" FromRole="Customers" ToRole="CashSalesOders" />
+          <NavigationProperty Name="CreditSalesOders" Relationship="POSDBModel.FK_CreditSalesOders_Customers" FromRole="Customer" ToRole="CreditSalesOder" />
+          <NavigationProperty Name="CreditStatements" Relationship="POSDBModel.FK_CreditStatement_Customers" FromRole="Customer" ToRole="CreditStatement" />
+        </EntityType>
+        <EntityType Name="JournalVoucher">
+          <Key>
+            <PropertyRef Name="jv_id" />
+          </Key>
+          <Property Name="jv_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cash_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jv_date" Type="DateTime" Precision="0" />
+          <Property Name="coaid" Type="Int32" Nullable="false" />
+          <Property Name="debit" Type="Double" />
+          <Property Name="credit" Type="Double" />
+          <Property Name="descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ent_time" Type="Time" Precision="7" />
+          <Property Name="shopid" Type="Int32" />
+          <Property Name="RolesId" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ChartOfAccount" Relationship="Self.FK_JournalVoucher_ChartOfAccount" FromRole="JournalVoucher" ToRole="ChartOfAccount" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_JournalVoucher_Shop" FromRole="JournalVoucher" ToRole="Shop" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_JournalVoucher_UserRoles" FromRole="JournalVoucher" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="proid" />
+          </Key>
+          <Property Name="proid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="catid" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sku" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Double" />
+          <Property Name="UnitCost" Type="Double" />
+          <Property Name="SalesPrice" Type="Double" />
+          <Property Name="ReoderPoint" Type="Double" />
+          <Property Name="supid" Type="Int32" />
+          <Property Name="shopid" Type="Int32" />
+          <Property Name="manufacturingdate" Type="DateTime" Precision="0" />
+          <Property Name="expirydate" Type="DateTime" Precision="0" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Categories" FromRole="Product" ToRole="Categories" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_Product_Shop" FromRole="Product" ToRole="Shop" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Product_Suppliers" FromRole="Product" ToRole="Suppliers" />
+          <NavigationProperty Name="Producthistories" Relationship="Self.FK_Producthistory_Product" FromRole="Product" ToRole="Producthistory" />
+        </EntityType>
+        <EntityType Name="Producthistory">
+          <Key>
+            <PropertyRef Name="histid" />
+          </Key>
+          <Property Name="histid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proid" Type="Int32" />
+          <Property Name="qty_in" Type="Double" />
+          <Property Name="qty_out" Type="Double" />
+          <Property Name="shopid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Producthistory_Product" FromRole="Producthistory" ToRole="Product" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_Producthistory_Shop" FromRole="Producthistory" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="shopid" />
+          </Key>
+          <Property Name="shopid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="shopn_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shop_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shop_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shop_state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shop_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shop_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shop_website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shop_location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CashSalesOders" Relationship="Self.FK_CashSalesOders_Shop" FromRole="Shop" ToRole="CashSalesOders" />
+          <NavigationProperty Name="JournalVouchers" Relationship="Self.FK_JournalVoucher_Shop" FromRole="Shop" ToRole="JournalVoucher" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Shop" FromRole="Shop" ToRole="Product" />
+          <NavigationProperty Name="Producthistories" Relationship="Self.FK_Producthistory_Shop" FromRole="Shop" ToRole="Producthistory" />
+          <NavigationProperty Name="CreditSalesOders" Relationship="POSDBModel.FK_CreditSalesOders_Shop" FromRole="Shop" ToRole="CreditSalesOder" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="supid" />
+          </Key>
+          <Property Name="supid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="suppliername" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="supaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Suppliers" FromRole="Suppliers" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RolesId" />
+          </Key>
+          <Property Name="RolesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Roles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JournalVouchers" Relationship="Self.FK_JournalVoucher_UserRoles" FromRole="UserRoles" ToRole="JournalVoucher" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_dbo_Users_dbo_Userroles_rolesid" FromRole="UserRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="rolesid" Type="Int32" Nullable="false" />
+          <Property Name="shopid" Type="Int32" Nullable="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_dbo_Users_dbo_Userroles_rolesid" FromRole="Users" ToRole="UserRoles" />
+        </EntityType>
+        <Association Name="FK_CashSalesOders_Customers">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="CashSalesOders" Type="Self.CashSalesOder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="custid" />
+            </Principal>
+            <Dependent Role="CashSalesOders">
+              <PropertyRef Name="custid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashSalesOders_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="CashSalesOders" Type="Self.CashSalesOder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="CashSalesOders">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashSalesOrderDetails_CashSalesOders">
+          <End Role="CashSalesOders" Type="Self.CashSalesOder" Multiplicity="0..1" />
+          <End Role="CashSalesOrderDetails" Type="Self.CashSalesOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CashSalesOders">
+              <PropertyRef Name="odernumber" />
+            </Principal>
+            <Dependent Role="CashSalesOrderDetails">
+              <PropertyRef Name="odernumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Categories">
+          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="catid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="catid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalVoucher_ChartOfAccount">
+          <End Role="ChartOfAccount" Type="Self.ChartOfAccount" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="JournalVoucher" Type="Self.JournalVoucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChartOfAccount">
+              <PropertyRef Name="coaid" />
+            </Principal>
+            <Dependent Role="JournalVoucher">
+              <PropertyRef Name="coaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalVoucher_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="JournalVoucher" Type="Self.JournalVoucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="JournalVoucher">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JournalVoucher_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="0..1" />
+          <End Role="JournalVoucher" Type="Self.JournalVoucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RolesId" />
+            </Principal>
+            <Dependent Role="JournalVoucher">
+              <PropertyRef Name="RolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Suppliers">
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="supid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="supid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producthistory_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Producthistory" Type="Self.Producthistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="proid" />
+            </Principal>
+            <Dependent Role="Producthistory">
+              <PropertyRef Name="proid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producthistory_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="Producthistory" Type="Self.Producthistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="Producthistory">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Users_dbo_Userroles_rolesid">
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RolesId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="rolesid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="POSDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CashSalesBaskets" EntityType="Self.CashSalesBasket" />
+          <EntitySet Name="CashSalesOders" EntityType="Self.CashSalesOder" />
+          <EntitySet Name="CashSalesOrderDetails" EntityType="Self.CashSalesOrderDetail" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccount" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="JournalVouchers" EntityType="Self.JournalVoucher" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Producthistories" EntityType="Self.Producthistory" />
+          <EntitySet Name="Shops" EntityType="Self.Shop" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_CashSalesOders_Customers" Association="Self.FK_CashSalesOders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CashSalesOders" EntitySet="CashSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashSalesOders_Shop" Association="Self.FK_CashSalesOders_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="CashSalesOders" EntitySet="CashSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashSalesOrderDetails_CashSalesOders" Association="Self.FK_CashSalesOrderDetails_CashSalesOders">
+            <End Role="CashSalesOders" EntitySet="CashSalesOders" />
+            <End Role="CashSalesOrderDetails" EntitySet="CashSalesOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Categories" Association="Self.FK_Product_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalVoucher_ChartOfAccount" Association="Self.FK_JournalVoucher_ChartOfAccount">
+            <End Role="ChartOfAccount" EntitySet="ChartOfAccounts" />
+            <End Role="JournalVoucher" EntitySet="JournalVouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalVoucher_Shop" Association="Self.FK_JournalVoucher_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="JournalVoucher" EntitySet="JournalVouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JournalVoucher_UserRoles" Association="Self.FK_JournalVoucher_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="JournalVoucher" EntitySet="JournalVouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Shop" Association="Self.FK_Product_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Suppliers" Association="Self.FK_Product_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producthistory_Product" Association="Self.FK_Producthistory_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Producthistory" EntitySet="Producthistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producthistory_Shop" Association="Self.FK_Producthistory_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Producthistory" EntitySet="Producthistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Users_dbo_Userroles_rolesid" Association="Self.FK_dbo_Users_dbo_Userroles_rolesid">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="CreditSalesOders" EntityType="POSDBModel.CreditSalesOder" />
+          <EntitySet Name="CreditSalesOrderDetails" EntityType="POSDBModel.CreditSalesOrderDetail" />
+          <AssociationSet Name="FK_CreditSalesOders_Customers" Association="POSDBModel.FK_CreditSalesOders_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CreditSalesOder" EntitySet="CreditSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditSalesOders_Shop" Association="POSDBModel.FK_CreditSalesOders_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="CreditSalesOder" EntitySet="CreditSalesOders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditSalesOrderDetails_CreditSalesOders" Association="POSDBModel.FK_CreditSalesOrderDetails_CreditSalesOders">
+            <End Role="CreditSalesOder" EntitySet="CreditSalesOders" />
+            <End Role="CreditSalesOrderDetail" EntitySet="CreditSalesOrderDetails" />
+          </AssociationSet>
+          <EntitySet Name="CreditStatements" EntityType="POSDBModel.CreditStatement" />
+          <AssociationSet Name="FK_CreditStatement_Customers" Association="POSDBModel.FK_CreditStatement_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CreditStatement" EntitySet="CreditStatements" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CreditSalesOder">
+          <Key>
+            <PropertyRef Name="odernumber" />
+          </Key>
+          <Property Name="oderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderdate" Type="DateTime" Precision="0" />
+          <Property Name="odernumber" Type="Guid" Nullable="false" />
+          <Property Name="pay_meth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="Double" />
+          <Property Name="vat" Type="Double" />
+          <Property Name="nettotal" Type="Double" />
+          <Property Name="custid" Type="Int32" />
+          <Property Name="salesagent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shopid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdatedate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="POSDBModel.FK_CreditSalesOders_Customers" FromRole="CreditSalesOder" ToRole="Customer" />
+          <NavigationProperty Name="Shop" Relationship="POSDBModel.FK_CreditSalesOders_Shop" FromRole="CreditSalesOder" ToRole="Shop" />
+          <NavigationProperty Name="CreditSalesOrderDetails" Relationship="POSDBModel.FK_CreditSalesOrderDetails_CreditSalesOders" FromRole="CreditSalesOder" ToRole="CreditSalesOrderDetail" />
+          <Property Name="po_num" Type="Int32" />
+          <Property Name="due_date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="CreditSalesOrderDetail">
+          <Key>
+            <PropertyRef Name="oderdetailsid" />
+          </Key>
+          <Property Name="oderdetailsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="odernumber" Type="Guid" />
+          <Property Name="product" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Double" />
+          <Property Name="salesprice" Type="Double" />
+          <Property Name="unitcost" Type="Double" />
+          <Property Name="totals" Type="Double" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CreditSalesOder" Relationship="POSDBModel.FK_CreditSalesOrderDetails_CreditSalesOders" FromRole="CreditSalesOrderDetail" ToRole="CreditSalesOder" />
+        </EntityType>
+        <Association Name="FK_CreditSalesOders_Customers">
+          <End Type="POSDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="POSDBModel.CreditSalesOder" Role="CreditSalesOder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custid" />
+            </Principal>
+            <Dependent Role="CreditSalesOder">
+              <PropertyRef Name="custid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditSalesOders_Shop">
+          <End Type="POSDBModel.Shop" Role="Shop" Multiplicity="0..1" />
+          <End Type="POSDBModel.CreditSalesOder" Role="CreditSalesOder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="shopid" />
+            </Principal>
+            <Dependent Role="CreditSalesOder">
+              <PropertyRef Name="shopid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditSalesOrderDetails_CreditSalesOders">
+          <End Type="POSDBModel.CreditSalesOder" Role="CreditSalesOder" Multiplicity="0..1" />
+          <End Type="POSDBModel.CreditSalesOrderDetail" Role="CreditSalesOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditSalesOder">
+              <PropertyRef Name="odernumber" />
+            </Principal>
+            <Dependent Role="CreditSalesOrderDetail">
+              <PropertyRef Name="odernumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CreditStatement">
+          <Key>
+            <PropertyRef Name="stid" />
+          </Key>
+          <Property Name="stid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="st_date" Type="DateTime" Precision="0" />
+          <Property Name="description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="vch_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="debit" Type="Double" />
+          <Property Name="credit" Type="Double" />
+          <Property Name="custid" Type="Int32" Nullable="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="lastupdatedate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="POSDBModel.FK_CreditStatement_Customers" FromRole="CreditStatement" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_CreditStatement_Customers">
+          <End Type="POSDBModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="POSDBModel.CreditStatement" Role="CreditStatement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custid" />
+            </Principal>
+            <Dependent Role="CreditStatement">
+              <PropertyRef Name="custid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="POSDBModelStoreContainer" CdmEntityContainer="POSDBEntities1">
+          <EntitySetMapping Name="CashSalesBaskets">
+            <EntityTypeMapping TypeName="POSDBModel.CashSalesBasket">
+              <MappingFragment StoreEntitySet="CashSalesBasket">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="basketid" ColumnName="basketid" />
+                <ScalarProperty Name="proid" ColumnName="proid" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashSalesOders">
+            <EntityTypeMapping TypeName="POSDBModel.CashSalesOder">
+              <MappingFragment StoreEntitySet="CashSalesOders">
+                <ScalarProperty Name="oderid" ColumnName="oderid" />
+                <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+                <ScalarProperty Name="odernumber" ColumnName="odernumber" />
+                <ScalarProperty Name="pay_meth" ColumnName="pay_meth" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="vat" ColumnName="vat" />
+                <ScalarProperty Name="sale_disc" ColumnName="sale_disc" />
+                <ScalarProperty Name="nettotal" ColumnName="nettotal" />
+                <ScalarProperty Name="amt_rece" ColumnName="amt_rece" />
+                <ScalarProperty Name="amt_change" ColumnName="amt_change" />
+                <ScalarProperty Name="custid" ColumnName="custid" />
+                <ScalarProperty Name="salesagent" ColumnName="salesagent" />
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdatedate" ColumnName="lastupdatedate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashSalesOrderDetails">
+            <EntityTypeMapping TypeName="POSDBModel.CashSalesOrderDetail">
+              <MappingFragment StoreEntitySet="CashSalesOrderDetails">
+                <ScalarProperty Name="oderdetailsid" ColumnName="oderdetailsid" />
+                <ScalarProperty Name="odernumber" ColumnName="odernumber" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="salesprice" ColumnName="salesprice" />
+                <ScalarProperty Name="unitcost" ColumnName="unitcost" />
+                <ScalarProperty Name="totals" ColumnName="totals" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="POSDBModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="catid" ColumnName="catid" />
+                <ScalarProperty Name="cate" ColumnName="cate" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartOfAccounts">
+            <EntityTypeMapping TypeName="POSDBModel.ChartOfAccount">
+              <MappingFragment StoreEntitySet="ChartOfAccount">
+                <ScalarProperty Name="coaid" ColumnName="coaid" />
+                <ScalarProperty Name="coa_code" ColumnName="coa_code" />
+                <ScalarProperty Name="coa_name" ColumnName="coa_name" />
+                <ScalarProperty Name="coa_group" ColumnName="coa_group" />
+                <ScalarProperty Name="coa_sub_group" ColumnName="coa_sub_group" />
+                <ScalarProperty Name="coa_cate" ColumnName="coa_cate" />
+                <ScalarProperty Name="coa_cf" ColumnName="coa_cf" />
+                <ScalarProperty Name="coa_ocbfy" ColumnName="coa_ocbfy" />
+                <ScalarProperty Name="coa_cogm" ColumnName="coa_cogm" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="POSDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="custid" ColumnName="custid" />
+                <ScalarProperty Name="customername" ColumnName="customername" />
+                <ScalarProperty Name="custaddress" ColumnName="custaddress" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JournalVouchers">
+            <EntityTypeMapping TypeName="POSDBModel.JournalVoucher">
+              <MappingFragment StoreEntitySet="JournalVoucher">
+                <ScalarProperty Name="jv_id" ColumnName="jv_id" />
+                <ScalarProperty Name="cash_code" ColumnName="cash_code" />
+                <ScalarProperty Name="jv_date" ColumnName="jv_date" />
+                <ScalarProperty Name="coaid" ColumnName="coaid" />
+                <ScalarProperty Name="debit" ColumnName="debit" />
+                <ScalarProperty Name="credit" ColumnName="credit" />
+                <ScalarProperty Name="descriptions" ColumnName="descriptions" />
+                <ScalarProperty Name="ent_time" ColumnName="ent_time" />
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="POSDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="proid" ColumnName="proid" />
+                <ScalarProperty Name="catid" ColumnName="catid" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="Sku" ColumnName="Sku" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="SalesPrice" ColumnName="SalesPrice" />
+                <ScalarProperty Name="ReoderPoint" ColumnName="ReoderPoint" />
+                <ScalarProperty Name="supid" ColumnName="supid" />
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="manufacturingdate" ColumnName="manufacturingdate" />
+                <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producthistories">
+            <EntityTypeMapping TypeName="POSDBModel.Producthistory">
+              <MappingFragment StoreEntitySet="Producthistory">
+                <ScalarProperty Name="histid" ColumnName="histid" />
+                <ScalarProperty Name="proid" ColumnName="proid" />
+                <ScalarProperty Name="qty_in" ColumnName="qty_in" />
+                <ScalarProperty Name="qty_out" ColumnName="qty_out" />
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shops">
+            <EntityTypeMapping TypeName="POSDBModel.Shop">
+              <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="shopn_name" ColumnName="shopn_name" />
+                <ScalarProperty Name="shop_address" ColumnName="shop_address" />
+                <ScalarProperty Name="shop_city" ColumnName="shop_city" />
+                <ScalarProperty Name="shop_state" ColumnName="shop_state" />
+                <ScalarProperty Name="shop_phone" ColumnName="shop_phone" />
+                <ScalarProperty Name="shop_email" ColumnName="shop_email" />
+                <ScalarProperty Name="shop_website" ColumnName="shop_website" />
+                <ScalarProperty Name="shop_location" ColumnName="shop_location" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="POSDBModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="supid" ColumnName="supid" />
+                <ScalarProperty Name="suppliername" ColumnName="suppliername" />
+                <ScalarProperty Name="supaddress" ColumnName="supaddress" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="POSDBModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="POSDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="rolesid" ColumnName="rolesid" />
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditSalesOders">
+            <EntityTypeMapping TypeName="POSDBModel.CreditSalesOder">
+              <MappingFragment StoreEntitySet="CreditSalesOders">
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="po_num" ColumnName="po_num" />
+                <ScalarProperty Name="lastupdatedate" ColumnName="lastupdatedate" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="shopid" ColumnName="shopid" />
+                <ScalarProperty Name="salesagent" ColumnName="salesagent" />
+                <ScalarProperty Name="custid" ColumnName="custid" />
+                <ScalarProperty Name="nettotal" ColumnName="nettotal" />
+                <ScalarProperty Name="vat" ColumnName="vat" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="pay_meth" ColumnName="pay_meth" />
+                <ScalarProperty Name="odernumber" ColumnName="odernumber" />
+                <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+                <ScalarProperty Name="oderid" ColumnName="oderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditSalesOrderDetails">
+            <EntityTypeMapping TypeName="POSDBModel.CreditSalesOrderDetail">
+              <MappingFragment StoreEntitySet="CreditSalesOrderDetails">
+                <ScalarProperty Name="lastupdateddate" ColumnName="lastupdateddate" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="totals" ColumnName="totals" />
+                <ScalarProperty Name="unitcost" ColumnName="unitcost" />
+                <ScalarProperty Name="salesprice" ColumnName="salesprice" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="odernumber" ColumnName="odernumber" />
+                <ScalarProperty Name="oderdetailsid" ColumnName="oderdetailsid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditStatements">
+            <EntityTypeMapping TypeName="POSDBModel.CreditStatement">
+              <MappingFragment StoreEntitySet="CreditStatement">
+                <ScalarProperty Name="lastupdatedate" ColumnName="lastupdatedate" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="custid" ColumnName="custid" />
+                <ScalarProperty Name="credit" ColumnName="credit" />
+                <ScalarProperty Name="debit" ColumnName="debit" />
+                <ScalarProperty Name="vch_type" ColumnName="vch_type" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="st_date" ColumnName="st_date" />
+                <ScalarProperty Name="stid" ColumnName="stid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

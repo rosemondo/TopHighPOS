@@ -1,0 +1,124 @@
+﻿@model TopHighPos.Domain.ViewModel.POSReceiptViewModel
+@{
+    ViewBag.Title = "PrintReceipt";
+}
+
+
+<div id="printableArea" style="background-color:white">
+
+    <div class="container">
+
+        @*<div class="receipt_header">
+                <h1 style="font-weight:bold;color:black; text-align:center">Receipt of Sale</h1>
+
+                <hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" />
+            </div>*@
+        <!-- info row -->
+        <div style="text-align:center">
+            <table width="100%">
+                <tr>
+                    <td colspan="4" style="text-align:center">
+                        <address>
+                            <strong>@Model.shopn_name</strong><br>
+                            @Model.address<br>
+                            @Model.contact<br>
+                            @Model.location
+                        </address>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- /.row -->
+        <div class="receipt_body" style="margin-top: 25px">
+            <div class="form-group row">
+                <table width="100%">
+                    <tr>
+                        <td style="text-align:left">Date: @Model.orderdate.ToString(format: "yyyy-MM-dd")</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:right">Number: @Model.orderid</td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" />
+            <div class="items" style="text-align:center">
+                <table class="table" id="orderdetails" width="100%">
+
+                    <thead>
+                        <tr>
+                            <th style="text-align:left"> Product</th>
+                            <th style="text-align:center">Qty</th>
+                            <th style="text-align:right">Price</th>
+                            <th style="text-align:right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ReceiptDetails)
+                        {
+                            <tr>
+                                <td style="text-align:left">@item.product</td>
+                                <td style="text-align:center">@item.qty</td>
+                                <td style="text-align:right">@item.salesprice.ToString(format: "#,##0.00")</td>
+                                <td style="text-align:right">@item.totals.ToString(format: "#,##0.00")</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="4"><hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td style="text-align:right"><strong>Sub Total: </strong> <strong>@Model.subtotal.ToString(format: "#,##0.00")</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td style="text-align:right"><strong>VAT: </strong> <strong>@Model.vat.ToString(format: "#,##0.00")</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td style="text-align:right"><strong>Discount : </strong> <strong>@Model.sale_disc.ToString(format: "#,##0.00")</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td style="text-align:right"><strong>Net Total: </strong> <strong>@Model.nettotal.ToString(format: "#,##0.00")</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align:center"><strong>Cashier : </strong> <strong>@Model.salesagent</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" />
+        <div style="text-align:center">
+            <h3>Thank You!</h3>
+        </div>
+
+    </div>
+
+</div>
+
+<input id="txtorderid" type="hidden" value="@ViewBag.odernumber" />
+
+<a class="btn btn-success float-right" onclick="printPageArea('printableArea')">Print<i class="fas fa-fw fa-print"></i></a>
+
+@section scripts{
+
+    <script src="~/Scripts/notify.min.js"></script>
+
+    <script type="text/javascript">
+        function printPageArea(areaID) {
+            var printContent = document.getElementById(areaID);
+            var WinPrint = window.open('', '', 'width=800,height=800');
+            WinPrint.document.write(printContent.innerHTML);
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
+
+            var url = "/CashSales/CashSales";
+
+            window.location = url;
+        }
+    </script>
+}

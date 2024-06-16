@@ -1,0 +1,238 @@
+﻿@model List<TopHighPos.Domain.ViewModel.ProductViewModel>
+
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<link href="~/css/product.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h6 class="card-title">
+                        Product Management
+                    </h6>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+
+                    <a class="btn btn-success" style="margin-bottom:10px" id="btnadd" data-toggle="modal" data-target="#productModal"><i class="fa fa-plus"></i>Add New Product</a>
+
+                    <div class="table table-responsive">
+
+                        <table class="table table-striped table-bordered" width="100%" id="productTable">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Product Description</th>
+                                    <th>Qty</th>
+                                    <th>Unit Cost</th>
+                                    <th>Sales Price</th>
+                                    <th>Category</th>
+                                    <th>Barcode</th>
+                                    <th style="text-align:center">Action</th>
+                                </tr>
+                            </thead>
+                            @foreach (var items in Model)
+                            {
+                                <tbody>
+                                    <tr id="a_@items.proid">
+                                        <td>@items.ProductName</td>
+                                        <td>@items.ProductDescription</td>
+                                        <td>@items.Qty</td>
+                                        <td>@items.UnitCost</td>
+                                        <td>@items.SalesPrice</td>
+                                        <td>@items.categories</td>
+                                        <td>@items.Sku</td>
+                                        <td align="center" valign="middle">
+                                            <a class="btn btn-primary btn-sm" onclick="Edit(@items.proid)"><i class="fa fa-pencil"></i>Edit</a> ||
+                                            <a href="@Url.Action("DeleteProduct","Product", new { id = items.proid })" onclick="return confirm('Do you want to delete this record?')" class="btn btn-danger btn-sm" style="margin-left: 5px"><i class="fa fa-trash"></i>Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                            <tfoot>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Product Description</th>
+                                    <th>Qty</th>
+                                    <th>Unit Cost</th>
+                                    <th>Sales Price</th>
+                                    <th>Category</th>
+                                    <th>Barcode</th>
+                                    <th style="text-align:center">Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <!-- /.card-body -->
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    @*Product Modal*@
+    @using (Html.BeginForm("AddNewProduct", "Product", FormMethod.Post))
+    {
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="productModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Product</h5>
+                        <button type="button" class="close" id="btnhide" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box box-primary">
+
+                            <div class="form-group row">
+
+                                <div class="col-sm-4">
+                                    <label>Barcode</label>
+                                    <input id="txtbarcode" name="Sku" type="text" class="form-control" placeholder="Barcode" />
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Category</label>
+                                    <select id="ddcategory" name="catid" class="form-control" required style="width:100%">
+                                        <option></option>
+
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Supplier</label>
+                                    <select id="ddsupplier" name="supid" class="form-control" required style="width:100%">
+                                        <option></option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label>Product Name</label>
+                                    <input id="txtproduct" name="ProductName" type="text" class="form-control" placeholder="Product Name" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>Qty</label>
+                                    <input id="txtqty" name="Qty" type="number" class="form-control" Value="0" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>Re-order Point</label>
+                                    <input id="txtreoder" name="ReoderPoint" type="number" class="form-control" Value="0" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label>Product Description</label>
+                                    <input id="txtprodesciption" name="ProductDescription" type="text" class="form-control" placeholder="Product Description" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label>Unit Cost</label>
+                                    <input id="txtunitcost" name="UnitCost" type="number" class="form-control" Value="0" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Sales Price</label>
+                                    <input id="txtsaleprice" name="SalesPrice" type="number" class="form-control" Value="0" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label>MFG. Date</label>
+                                    <input id="txtmfg" name="manufacturingdate" type="text" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>EXP. Date</label>
+                                    <input id="txtexp" name="expirydate" type="text" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Location</label>
+                                    <select id="ddlocation" name="shopid" class="form-control" required="required" style="width:100%">
+                                        <option></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label id="lblinvent">Inventory A/c</label>
+                                    <select id="ddinventory" name="coaid" class="form-control" required style="width:100%">
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label id="lblcash">Cash / Payable A/c</label>
+                                    <select id="ddcashpay" name="coaid2" class="form-control" required style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <input id="txtproid" name="proid" type="hidden" value="0" />
+
+                            <div class="modal-footer">
+                                <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <link href="~/DataTables/DataTables-1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/select2/select2.min.css" rel="stylesheet" />
+
+    @section scripts{
+
+        <script src="~/select2/select2.min.js"></script>
+        <script src="~/js_scripts/product.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/dataTables.bootstrap5.min.js"></script>
+        <script src="~/Scripts/notify.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+
+                $(function () {
+                    $("#txtmfg").datepicker();
+                    $("#txtexp").datepicker();
+                    $("#ddcashpay").select2();
+                    $("#ddinventory").select2();
+                    $("#ddlocation").select2();
+                    $("#ddcategory").select2();
+                    $("#ddsupplier").select2();
+                });
+            })
+        </script>
+
+    }
+
+</div>
+

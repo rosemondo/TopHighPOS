@@ -1,0 +1,166 @@
+﻿@model List<TopHighPos.Domain.Suppliers>
+@{
+    ViewBag.Title = "SuppliersList";
+}
+
+
+<link href="~/css/product.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h6 class="card-title">
+                        Suppliers Management
+                    </h6>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+
+                    <a class="btn btn-success" style="margin-bottom:10px" id="btnadd" data-toggle="modal" data-target="#supplierModal"><i class="fa fa-plus"></i>Add New</a>
+
+                    <div class="table table-responsive">
+
+                        <table class="table table-striped table-bordered" width="100%" id="supplierTable">
+                            <thead>
+                                <tr>
+                                    <th>Supplier</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Contact</th>
+                                    <th>E-mail</th>
+                                    <th style="text-align:center">Action</th>
+                                </tr>
+                            </thead>
+                            @foreach (var items in Model)
+                            {
+                                <tbody>
+                                    <tr id="a_@items.supid">
+                                        <td>@items.suppliername</td>
+                                        <td>@items.supaddress</td>
+                                        <td>@items.city</td>
+                                        <td>@items.state</td>
+                                        <td>@items.mobile</td>
+                                        <td>@items.email</td>
+                                        <td align="center" valign="middle">
+                                            <a class="btn btn-primary btn-sm" onclick="Edit(@items.supid)"><i class="fa fa-pencil"></i>Edit</a> ||
+                                            <a href="@Url.Action("DeleteSupplier","Suppliers", new { id = items.supid })" onclick="return confirm('Do you want to delete this record?')" class="btn btn-danger btn-sm" style="margin-left: 5px"><i class="fa fa-trash"></i>Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                            <tfoot>
+                                <tr>
+                                    <th>Sepplier</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Contact</th>
+                                    <th>E-mail</th>
+                                    <th style="text-align:center">Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <!-- /.card-body -->
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    @*Product Modal*@
+    @using (Html.BeginForm("AddNewSupplier", "Suppliers", FormMethod.Post))
+    {
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="supplierModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header" style="background-color: #006994;color:white">
+                        <h5 class="modal-title">New Supplier</h5>
+                        <button type="button" class="close" id="btnhide" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box box-primary">
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label>Supplier Name</label>
+                                    <input id="txtsupplier" name="suppliername" type="text" class="form-control" placeholder="Supplier" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <label>Address</label>
+                                    <input id="txtaddress" name="supaddress" type="text" class="form-control" placeholder="Address" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>City</label>
+                                    <input id="txtcity" name="city" type="text" class="form-control" placeholder="City" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label>State</label>
+                                    <input id="txtstate" name="state" type="text" class="form-control" placeholder="State" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Contact</label>
+                                    <input id="txtcontact" name="mobile" type="text" class="form-control" placeholder="Mobile" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>E-mail</label>
+                                    <input id="txtemail" name="email" type="email" class="form-control" placeholder="E-mail" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label>Website</label>
+                                    <input id="txtwebsite" name="website" type="text" class="form-control" placeholder="Website" />
+                                </div>
+                            </div>
+                            <input id="txtsupid" name="supid" type="hidden" value="0" />
+
+                            <div class="modal-footer">
+                                <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <link href="~/DataTables/DataTables-1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    @section scripts{
+
+        <script src="~/js_scripts/supplier.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/dataTables.bootstrap5.min.js"></script>
+        <script src="~/Scripts/notify.min.js"></script>
+
+    }
+
+</div>
+
+

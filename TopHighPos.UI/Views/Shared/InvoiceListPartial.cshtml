@@ -1,0 +1,27 @@
+﻿@model List<TopHighPos.Domain.ViewModel.InvoiceListViewModel>
+
+<table class="table" id="receiptlistT" width="100%">
+
+    <thead>
+        <tr>
+            <th style="text-align:left">Invoice #</th>
+            <th style="text-align: left">Date</th>
+            <th style="text-align: left">Customer</th>
+            <th style="text-align:center">Actiont</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:left">@item.ID</td>
+                <td style="text-align:left">@item.Date.ToString(format: "yyyy-MM-dd")</td>
+                <td style="text-align:left">@item.Customer</td>
+                <td style="text-align:center"><a class="btn btn-block btn-success" href="/CreditSales/PreviewInvoice?odernumber=@item.odernumber">View<i class="fas fa-fw fa-eye"></i></a></td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4"><hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" /></td>
+        </tr>
+    </tbody>
+</table>

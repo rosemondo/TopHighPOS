@@ -1,0 +1,43 @@
+﻿@model TopHighPos.Domain.ViewModel.InvoiceViewModel
+@{
+    double TotalSales = 0.00;
+}
+
+<table class="table" id="orderdetails" width="100%">
+
+    <thead>
+        <tr>
+            <th style="text-align:left"> Product</th>
+            <th style="text-align:center">Qty</th>
+            <th style="text-align:right">Price</th>
+            <th style="text-align:right">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.InvoiceDetails)
+        {
+            TotalSales += item.totals;
+
+            <tr>
+                <td style="text-align:left">@item.product</td>
+                <td style="text-align:center">@item.qty</td>
+                <td style="text-align:right">@item.salesprice.ToString(format: "#,##0.00")</td>
+                <td style="text-align:right">@item.totals.ToString(format: "#,##0.00")</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4"><hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" /></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:right">
+                <h3>Total Sales :</h3>
+            </td>
+            <td style="text-align:right">
+                <h3>@TotalSales.ToString(format: "#,##0.00")</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" /></td>
+        </tr>
+    </tbody>
+</table>

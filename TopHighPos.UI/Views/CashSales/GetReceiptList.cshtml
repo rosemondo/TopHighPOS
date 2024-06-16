@@ -1,0 +1,143 @@
+﻿@model List<TopHighPos.Domain.ViewModel.ReceiptListViewModel>
+@{
+    ViewBag.Title = "GetReceiptList";
+}
+
+
+<div class="container-fluid">
+
+    <div class="d-flex p-2" style="background-color:white">Sales Report</div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header" style="background-color: #006994;color:white">
+                    <a class="collapse-item" href="~/CashSales/GetReceiptList" style="color:white">Sales Receipt List</a>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-3">
+                            <label>Date From</label>
+                            <input id="txtdatefrom" name="txtdatefrom" type="text" class="form-control" />
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label>Date To</label>
+                            <input id="txtdateto" name="txtdateto" type="text" class="form-control" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label>Location</label>
+                            @Html.DropDownList("Shop", ViewBag.Shop as IEnumerable<SelectListItem>, " ", new { @id = "ddlocation", name = "ddlocation", @class = "form-control", @style = "width:100%", @onchange = "getShopID(this)" })
+                        </div>
+                        <input id="txtshopid" name="txtshopid" type="hidden" />
+                        <button type="submit" id="btnSearch" class="btn btn-primary" style="float: right; padding: 5px; margin: 5px; width: 150px" onclick="GetSalesReceiptByDate()">Search</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-body">
+
+                    <div id="printableArea" style="background-color:white">
+
+                        <table class="table" id="receiptlistT" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left">Receipt #</th>
+                                    <th style="text-align: left">Date</th>
+                                    <th style="text-align: left">Customer</th>
+                                    <th style="text-align:center">Actiont</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td style="text-align:left">@item.ID</td>
+                                            <td style="text-align:left">@item.Date.ToString(format: "yyyy-MM-dd")</td>
+                                            <td style="text-align:left">@item.Customer</td>
+                                            <td style="text-align:center"><a class="btn btn-block btn-success" href="/CashSales/PreviewReceipt?odernumber=@item.odernumber">View<i class="fas fa-fw fa-eye"></i></a></td>
+                                        </tr>
+                                    }
+                                }
+                                <tr>
+                                    <td colspan="4"><hr style="border-inline: dashed; border-bottom: 1px dashed #000; border-block-color: black" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <a class="btn btn-success float-right" onclick="printPageArea('printableArea')">Print<i class="fas fa-fw fa-print"></i></a>
+    <link href="~/select2/select2.min.css" rel="stylesheet" />
+
+    @section scripts{
+
+        <script src="~/select2/select2.min.js"></script>
+        <script src="~/Scripts/notify.min.js"></script>
+        <script src="~/js_scripts/cashsales.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+
+                $(function () {
+                    $("#txtdatefrom").datepicker();
+                    $("#txtdateto").datepicker();
+                    $("#ddlocation").select2();
+                });
+            })
+        </script>
+
+        <script type="text/javascript">
+            function printPageArea(areaID) {
+                var printContent = document.getElementById(areaID);
+                var WinPrint = window.open('', '', 'width=800,height=800');
+                WinPrint.document.write(printContent.innerHTML);
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+
+                var url = "/CashSales/GetReceiptList";
+
+                window.location = url;
+            }
+        </script>
+    }
+
+</div>
+
